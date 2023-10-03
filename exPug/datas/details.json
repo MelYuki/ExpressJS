@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Playstation",
+        "editor": "Sony",
+        "birth": 1994
+    },
+    {
+        "name": "Nintendo",
+        "editor": "Nintendo Corp",
+        "birth": 1973
+    },
+    {
+        "name": "Xbox One",
+        "editor": "Microsoft",
+        "birth": 2013
+    }
+]

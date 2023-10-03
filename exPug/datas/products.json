@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Playstation",
+        "price": 199.99,
+        "category": "Old school gamin"
+    },
+    {
+        "name": "Nintendo",
+        "price": 159.99,
+        "category": "Old school gamin"
+    },
+    {
+        "name": "Xbox One",
+        "price": 359.99,
+        "category": "New school gamin"
+    }
+]

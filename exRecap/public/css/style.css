@@ -1,0 +1,69 @@
+html, body {
+    height: 100vh;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+header {
+    background-color: maroon;
+    color: black;
+    text-align: center;
+    padding: 20px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    background-color: maroon;
+    color: black;
+    text-align: center;
+    padding: 20px;
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+}
+
+li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+button {
+    background-color: black;
+    color: red;
+    padding: 15px 30px;
+}
+button:hover {
+    background-color: maroon;
+    color: black;
+}
+
+.back {
+    padding: 5px 5px;
+}
+
+form, .form {
+    margin: auto;
+}
+
+h1 {
+    font-style: oblique;
+}
+
+h2 {
+    font-family: fantasy;
+}
+
+.prom {
+    color: red;
+}

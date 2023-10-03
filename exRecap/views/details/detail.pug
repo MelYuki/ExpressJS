@@ -1,0 +1,17 @@
+extends ../shared/layout.pug
+
+block content 
+    h1 Details of Product
+    p Here is all the details about the selected product.
+
+    a(href="/product")
+        button.back << Go back
+
+    ul
+        li
+            if detail.inPromo
+                p.prom !!! Promotion !!!
+            p= detail.name
+            p= detail.price + "€"
+            p= detail.desc
+            img(src=`/product/${detail.image}`, alt=`${detail.name}`)

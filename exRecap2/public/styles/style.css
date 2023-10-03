@@ -1,0 +1,67 @@
+html, body {
+    height: 100vh;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+header {
+    background-color: maroon;
+    color: black;
+    text-align: center;
+    padding: 20px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+footer {
+    background-color: maroon;
+    color: black;
+    text-align: center;
+    padding: 20px;
+}
+
+form {
+    text-align: center;
+}
+
+ul {
+    margin: auto;
+}
+li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+button {
+    background-color: black;
+    color: red;
+    padding: 15px 30px;
+}
+button:hover {
+    background-color: maroon;
+    color: black;
+}
+.nav {
+    text-decoration: underline;
+}
+.log, .reg {
+    text-align: center;
+    font-family: fantasy;
+}
+h2 {
+    font-style: oblique;
+}
+/* 
+input {
+    text-align: center;
+    align-tracks: center;
+} */

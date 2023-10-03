@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    h2 Détails des produits
+    ul
+        each detail in details
+            li
+                p= "Console: " + detail.name
+                p= "Editeur: " + detail.editor 
+                p= "Date de parution: " + detail.birth
+
+    a(href="/")
+        button Retour

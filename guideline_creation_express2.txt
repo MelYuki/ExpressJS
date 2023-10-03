@@ -1,0 +1,124 @@
+1) Initialisation du projet
+
+npm init
+
+2) Installation des dépendances
+
+npm install express / nodemon / bcrypt
+
+3) Création du fichier principal
+
+app.js
+
+4) Importation d'express
+
+const express = require('express');
+
+5) Initialisation du serveur express
+
+const app = express();
+
+6) Lancement du serveur express
+
+app.listen(port, () => {
+	console.log(`Server is running on port : ${port}`);
+});
+
+7) Création des différents fichiers / dossiers dont nous allons nous servir
+
+- register.router.js
+- register.controller.js
+- register.model.js
+
+8) Création du module "model" qui va servir a joindre la BD à l'application
+
+const RegisterModel = {
+
+    register:  (data) => {
+        const {
+            email, 
+            hashedPassword, 
+            username, 
+            age } = data;
+            return `User is register with the email ${email}`
+    }
+}
+
+module.exports = RegisterModel;
+
+9) Création du module "controller" qui va servir à effectuer les opérations néccéssaire à l'enregistrement de l'utilisateur
+
+	a) Importation des modules néccessaires 
+
+	const bcrypt = require('bcrypt'); // Module de cryptage
+	const RegisterModel = require('./register.model');
+
+	b) Récupération des informations de l'utilisateur
+	const {email, password, username, age} = request.body;
+
+	c) //Début de la transaction et captation et gestion des possibles erreurs 
+	try {
+            //Hash du password selon un certain degré de complexité (salt)
+            const hashedPassword = bcrypt.hashSync(password, 10)
+
+            //On appelle le model qui va servir de pont avec la BD
+            const newUser = RegisterModel.register({email, hashedPassword, username, age});
+
+            // On vérifie que la transaction a été effectuée
+            if (newUser) {
+                response.status(200).send(newUser);
+ 		}
+	} catch(error) {
+            console.error(error);
+            response.status(500).send('Server error');
+		
+	}
+
+	d) Exportation du module
+		module.exports = RegisterController;
+
+10) Création du module "router" qui va servir a concentrer toutes les routes du register en un module
+
+	a) Importation des modules
+		const express = require('express');
+		const RegisterController = require('./register.controller');
+
+	b) Initialisation du router d'expressjs
+		const router = express.Router();
+
+	c) Création d'une route POST -> On y indique le controlleur nécéssaire
+	router.post('/register', RegisterController.register);
+
+11) Utilisation du router dans l'application
+
+app.use(router);
+
+12) Utilisation du JSON
+
+app.use(express.json());
+
+13) POSTMAN
+
+	A ne faire qu'une fois : Création de collection
+	Cliquer sur le + (Create new collection)
+
+	a) Cliquer sur les trois petits points (...)
+	Add new request
+
+	b) Rentrer l'URL a tester dans le champ URL + choisir la method à utiliser
+
+	c) Séléctionner body
+	d) Dans le menu déroulant 'none' séléctionner raw
+	e) Dans le second menu déroulant séléectionner JSON
+
+	f) Inscrire les données dans le corps de la requête 
+	{
+   		 "email": "test@test.com",
+    		"password": "test",
+    		"username": "testeur",
+    		"age": 30
+	}
+
+	g) Cliquer sur send
+
+	

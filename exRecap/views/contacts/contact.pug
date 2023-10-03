@@ -1,0 +1,21 @@
+extends ../shared/layout.pug
+
+block content 
+    h1.form Contacts formular 
+    br
+    form(method="post") 
+        div 
+            label(for="pseudo") Pseudo 
+            input#pseudo(type="text", name="pseudo", value=data.pseudo)
+            if errors.pseudo 
+                span.error A pseudo is required !
+        br
+        div 
+            label(for="message") Message 
+            textarea#message(name="message") #{data.message}
+            if errors.message 
+                span.error The message is missing !
+            br
+        br
+        div
+            button(type="submit") Send 

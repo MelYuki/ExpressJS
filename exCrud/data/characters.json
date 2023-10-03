@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "firstname": "Luffy",
+        "lastname": "mugywara",
+        "serie": ["One Piece"]
+    },
+    {
+        "id": 2,
+        "firstname": "Zoro",
+        "lastname": "juro",
+        "serie": ["One Piece"]
+    },
+    {
+        "id": 3,
+        "firstname": "Sanji",
+        "lastname": "germa",
+        "serie": ["One Piece"]
+    }
+]

@@ -1,0 +1,68 @@
+1) Initialisation du projet
+
+npm init
+
+2) Installation des dépendances
+
+npm install express / nodemon / bcrypt
+
+3) Création du fichier principal
+
+app.js
+
+4) Importation d'express
+
+const express = require('express');
+
+5) Initialisation du serveur express
+
+const app = express();
+
+6) Lancement du serveur express
+
+app.listen(port, () => {
+	console.log(`Server is running on port : ${port}`);
+});
+
+7) Création du middleware "application-level"
+
+const middlewareApp = (req, res, next) => {
+    const url = req.url;
+    const now = new Date().toLocaleDateString('fr-be'); // Traduction de la date au format belge
+
+    console.log(`Requête à été effectuée sur : ${url} à ${now}`)
+    next();
+}
+
+8) Utilisation du middlewareApp dans l'app
+app.use(middlewareApp);
+
+9) Création du middleware "router-level"
+
+const middlewareRouter = (req, res, next) => {
+    console.log('Copain était sur cette page');
+    next();
+};
+
+10) Utilisation du middlewareRouter sur une route spécifique
+
+router.get('/copain', middlewareRouter ,(req, res) => {
+    console.log('Coucou copain');
+});
+
+11) Création du middleware "Error-Handling"
+
+const middlewareError = (error, req, res, next) => {
+    console.log('Traitement de l\'erreur : ', error);
+
+    if (res.headerSent) {
+        return next(error);
+    }
+
+    res.status(500).send('<h1>Une erreur est survenue</h1>');
+};
+
+12) Utilisation du middlewareError au niveau de l'application
+
+app.use(middlewareError);
+

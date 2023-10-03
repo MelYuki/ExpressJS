@@ -1,0 +1,14 @@
+extends ../shared/layout.pug
+
+block content 
+    h1 List of Products 
+    p Here is the exhaustive list of products that you can find.
+
+    h2 Products
+    ul
+        each prod in products 
+            li
+                p= "Product: " + prod.name
+                p= "Price: " + prod.price
+                a(href=`/detail/${prod.id}`) More Details
+            br

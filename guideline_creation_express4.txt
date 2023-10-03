@@ -1,0 +1,239 @@
+1) Initialisation du projet
+
+npm init
+
+2) Installation des dépendances
+
+npm install express / nodemon / bcrypt
+
+3) Création du fichier principal
+
+app.js
+
+4) Importation d'express
+
+const express = require('express');
+
+5) Initialisation du serveur express
+
+const app = express();
+
+6) Lancement du serveur express
+
+app.listen(port, () => {
+	console.log(`Server is running on port : ${port}`);
+});
+
+7) Création du dossier data qui va contenir notre fichier de données
+
+8) Création du fichier de données
+
+[
+    {
+        "id": 1,
+        "firstname": "Zaza",
+        "lastname": "Vanderquack",
+        "serie": ["La bande à Picsou"]
+    },
+    {
+        "id": 2,
+        "firstname": "Della",
+        "lastname": "Duck",
+        "serie": ["La bande à Picsou"]
+    },
+    {
+        "id": 3,
+        "firstname": "Balthazar",
+        "lastname": "Picsou",
+        "serie": ["La bande à Picsou"]
+    },
+    {
+        "id": 4,
+        "firstname": "Mickey",
+        "lastname": "Mouse",
+        "serie": ["Mickey et ses amis"]
+    },
+    {
+        "id": 5,
+        "firstname": "Minnie",
+        "lastname": "Mouse",
+        "serie": ["Mickey et ses amis"]
+    },
+    {
+        "id": 6,
+        "firstname": "Donald",
+        "lastname": "Duck",
+        "serie": ["Mickey et ses amis", "La bande à Picsou"]
+    }
+]
+
+9) Expliciter à express qu'il va devoir travailler avec du json
+
+app.use(express.json());
+
+10) Création du dossier controllers qui va contenir le fichier qui va gèrer nos opéarations
+
+11) Création du fichier controller
+
+	a) Importation des personnages : 
+		const characters = require('../data/characters.json');
+
+	b) Créatiuon du controller 
+
+		b-1) Méthode getAll: 
+			
+	getAll: (req, res) => {
+        // Préparation des datas - Itération des données de l'objet et récupération des informations dans un nouvel object(array)
+        const data = characters.map(c => ({
+            id: c.id,
+            firstname: c.firstname,
+            lastname: c.lastname
+        }));
+
+        console.log(data);
+	res.json(data);
+    }
+
+		b-2) Méthode getById:
+
+	getById: (req, res) => {
+        // Récupération de l'ID dans l'url (params) - parse l'url
+        const id = parseInt(req.params.id);
+
+        // Récupération du personnage selon l'id entré en paramètre
+        const character = characters.find(c => c.id === id);
+
+        // Envoi d'une erreur 404 si aucun personnage est équivalent à l'ID rechercher
+        if (!character) {
+            res.sendStatus(404);
+            return;
+        }
+
+        // Envoi du personnage récupéré
+        res.json(character);
+    }
+
+		b-3) Méthode delete:
+
+	delete: (req, res) => {
+        // Récupération de l'ID dans l'url (params) - parse l'url
+        const id = parseInt(req.params.id);
+
+        // Récupération de l'index de l'élément à supprimer
+        const targetIndex = characters.findIndex(c => c.id === id);
+
+        // Si l'élément n'existe pas
+        if (targetIndex === -1) {
+            res.sendStatus(404);
+            return;
+        }
+
+        // Suppression de l'élément ciblé
+        characters.splice(targetIndex, 1);
+
+        // Envoi de la réponse "No-Content"
+        res.sendStatus(204);
+    }
+
+	b-4) Méthode add:
+
+	Création de l'autoincrémentation 
+	let lastCharacterId = Math.max(...characters.map(c => c.id));
+
+	add: (req, res) => {
+        console.log('Donnée reçue : ', req.body);
+
+        // Mise en place de l'auto-incrémentation
+        lastCharacterId++;
+
+        // Création de l'objet à ajouter
+        const data = {
+            id: lastCharacterId,
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            serie: req.body.serie,
+        }
+
+        // Ajout des données dans la collection de personnages
+        characters.push(data);
+
+        // Envoi d'un code de succès et les datas
+        console.log('Nouvelles données : ', data)
+        res.status(201).json(data);
+    },
+
+	b-5) Méthode de modification (update)
+	
+	update: (req, res) => {
+        // Récupération de l'ID dans l'url (params) - parse l'url
+        const id = parseInt(req.params.id);
+
+        // Récupération du personnage selon l'id entré en paramètre
+        const character = characters.find(c => c.id === id);
+
+        // Envoi une erreur 404 si aucun personnage n'a été trouvé sous cet id
+        if(!character) {
+            res.sendStatus(404);
+            return;
+        }
+
+        // Modification de l'objet
+        const updatedCharacter = {...character, 
+            firstname: req.body.firstname, 
+            lastname: req.body.lastname, 
+            serie: req.body.serie
+        }
+
+        // Envoi d'un code de succès et les datas
+        console.log(updatedCharacter);
+        res.status(201).json(updatedCharacter);
+    },
+	
+	
+
+
+12) Création du router des characters
+
+	a) Importation du controller
+
+	b) Création du router pour les routes des personnages
+		const charactersRouter = require('express').Router();	
+
+	c) Création de la route pour récupérer tous les personnages
+		charactersRouter.get('/', CharactersController.getAll);
+
+	d) Création de la route pour récupération par ID
+		charactersRouter.get('/:id([0-9]+)', CharactersController.getById);
+
+	e) Création de la route de suppression de personnage par ID
+		charactersRouter.delete('/:id([0-9]+)', CharactersController.delete);
+
+	f) Création de la route de modification de personnage par ID
+		charactersRouter.put('/:id([0-9]+)', CharactersController.update);
+
+	g) Création de la route d'ajout de personnage
+		charactersRouter.post('/', CharactersController.add);
+
+13) Création du router général
+
+	a) Importation des routers spécifiques
+		
+	const charactersRouter = require('./characters.router');
+
+	b) Création du router pour toutes les routes
+
+	const router = require('express').Router();
+
+	router.use('/characters', charactersRouter);
+
+	module.exports = router;
+
+14) Utilisation du router général dans l'application
+
+	a) Importation du router général
+		
+	b) Utilisation du router général
+
+	const charactersRouter = require('./characters.router');
+	app.use('/api', router);
+	

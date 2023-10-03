@@ -1,0 +1,15 @@
+extends ../shared/layout.pug
+
+block content 
+    h1 Homepage 
+    p Nous sommes le #{dateOfDay}
+    p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin at lobortis massa. Nulla facilisi. Phasellus vehicula velit vitae consectetur malesuada.
+
+    h2.example List of person 
+    ul
+        each person in people 
+            li= person.firstname + " " + person.lastname 
+            br
+
+    h3 Image 
+    img(src="/assets/della.jpg", alt="Della Duck")

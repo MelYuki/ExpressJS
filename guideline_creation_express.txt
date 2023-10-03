@@ -1,0 +1,41 @@
+1) Initialisation du projet
+
+npm init
+
+2) Installation des dépendances
+
+npm install express / nodemon / etc
+
+3) Création du fichier principal
+
+app.js
+
+4) Importation d'express
+
+const express = require('express');
+
+5) Initialisation du serveur express
+
+const app = express();
+
+6) Lancement du serveur express
+
+app.listen(port, () => {
+	console.log(`Server is running on port : ${port}`);
+});
+
+7) Création du routing
+
+app.get('/', (request, response) => {
+    response.writeHead(200);
+    response.end('Hello World');
+})
+
+8) Ajout d'une route supplémentaire
+
+app.get('/test', (request, response) => {
+    response.writeHead(200, {
+        'Content-Type': 'text/html'
+    });
+    response.end('<h1>Message ok</h1>');
+});

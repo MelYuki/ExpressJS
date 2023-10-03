@@ -1,0 +1,35 @@
+extends ../shared/layout
+
+block content 
+    h1.reg Register Page
+    br
+
+    br
+    form(method="post", action="/register")
+        h2 Your personnal informations
+        div 
+            label(for="firstname") Firstname:
+            input(type="text", name="firstname", required)
+        div
+            label(for="lastname") Lastname:
+            input(type="text", name="lastname", required) 
+        div
+            label(for="tel") Number Phone:
+            input(type="text", name="tel", placeholder="Optionnel")
+        div
+            label(for="city") City:
+            input(type="text", name="city", placeholder="Optionnel")
+        br
+
+        h2 Your credentials
+        div
+            label(for="email") Email Address:
+            input(type="email", name="email", required)
+        div
+            label(for="pseudo") Username:
+            input(type="texte", name="pseudo", required)
+        div
+            label(for="password") Password:
+            input(type="password", name="password", required)
+        br
+        button(type="submit") Submit

@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "name": "Table",
+        "desc": " Created by Azumaya Kotatsu",
+        "price": 99.99,
+        "inPromo": true,
+        "categories": ["Meuble"],
+        "image": "table.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Chaise",
+        "desc": "Useless if you sit on floor!",
+        "price": 29.99,
+        "inPromo": false,
+        "categories": ["Meuble"],
+        "image": "chaise.jpg"
+    },
+    {
+        "id": 3,
+        "name": "Crayon",
+        "desc": "Use it well!",
+        "price": 2.99,
+        "inPromo": true,
+        "categories": ["Fournitures bureau"],
+        "image": "crayon.jpg"
+    },
+    {
+        "id": 4,
+        "name": "RJ45",
+        "desc": "Better than Wifi!",
+        "price": 19.99,
+        "inPromo": false,
+        "categories": ["Câble"],
+        "image": "rj45.jpg"
+    }
+]

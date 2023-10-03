@@ -1,0 +1,157 @@
+1) Initialisation du projet
+
+npm init
+
+2) Installation des dépendances
+
+npm install express / nodemon / pug
+
+3) Création du fichier principal
+
+index.js
+
+4) Importation d'express
+
+const express = require('express');
+
+5) Initialisation du serveur express
+
+const app = express();
+
+6) Lancement du serveur express
+
+app.listen(port, () => {
+	console.log(`Server is running on port : ${port}`);
+});
+
+7) Initialisation le moteur de templating
+
+app.set('view engine', 'pug');
+
+Instruction à express d'utiliser des vues qui se situent dans le dossier indiqué par le path
+app.set('views', path.join(__dirname, 'views'));
+
+8) Création d'un fichier de données
+
+	a) Création du dossier contenant
+
+	b) Création du fichier de données
+
+[
+    {
+        "id": 1,
+        "name": "Playstation One",
+        "price": 199.99,
+        "category": "Old school gaming"
+    },
+    {
+        "id": 2,
+        "name": "Super NES",
+        "price": 189.99,
+        "category": "Old school gaming"
+    },
+    {
+        "id": 3,
+        "name": "Mr. Propre",
+        "price": 12.99,
+        "category": "Produit du quotidien"
+    }
+]
+
+9) Importation du fichier de données dans l'app
+
+const products = require('./datas/products.json');
+
+10) Création de nos fichiers de vue (pug)
+
+	a) Création du dossier 'views'
+
+	b) Création du fichier layout.pug
+
+doctype html 
+html 
+    head 
+        title Mon site e-commerce 
+    body 
+        header 
+            h1 Mon site e-commerce 
+        
+        main 
+            block content 
+
+        footer 
+            p Copyright © 2023
+
+	c) Création du fichier main
+
+extends layout 
+
+block content 
+    h2 Nos produits 
+    ul 
+        each product in products 
+            li= product.name + ' - ' + product.price + '€'
+            br
+            span= product.category 
+            br
+
+
+11) Création de la route avec le rendering de notre template avec les données requises
+
+app.get('/', (req, res) => {
+    res.render('main', {products: products});
+});
+
+12) Création du dossier public qui va contenir les fichiers statiques
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+13) Création du fichier de style (css)
+
+	a) Création du dossier css
+	
+	b) Création du fichier index.css
+
+html, body {
+    height: 100vh;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  ul {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  li {
+    display: inline-block;
+    margin-right: 20px;
+  }
